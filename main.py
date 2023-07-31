@@ -7,7 +7,8 @@ import time
 
 action_prompt = "Type add, show, edit, complete, length or quit: "
 now = time.strftime("%b %d, %Y %H:%M:%S")
-print("It is ", now)
+print("The current time stamp is: ", now)
+
 
 while True:
 
