@@ -5,6 +5,7 @@
 from modules import functions   # from modules folder, use functions module
 import time
 
+
 action_prompt = "Type add, show, edit, complete, length or quit: "
 now = time.strftime("%b %d, %Y %H:%M:%S")
 print("The current time stamp is: ", now)
