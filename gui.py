@@ -10,11 +10,15 @@ list_box = sg.Listbox(values=functions.get_todos(),     # values expects a list
                       enable_events=True,   # expects a boolean value
                       size=[45,10])     # size of the list box
 edit_button = sg.Button("Edit")     # adds the "Edit" button
-
+complete_button = sg.Button("Complete")     # adds the "Complete" button
+exit_button = sg.Button("Exit")     # adds the "Exit" button
 
 # Below is the initialization of the Window and formats it with lists of PySimpleGui objects via layout
 window = sg.Window('My To-Do List App',
-                   layout=[[label],[input_box,add_button],[list_box,edit_button]],  # title of the window with a specific format via layout
+                   layout=[[label],
+                           [input_box,add_button],
+                           [list_box,edit_button,complete_button],
+                           [exit_button]], # title of the window with a specific format via layout
                    font=('Arial', 20))    # font(str(font name),font size)
 while True:
     event, values = window.read()     # displays window onto the screen
@@ -25,7 +29,8 @@ while True:
             todos.append(new_todo)
             functions.write_todos(todos)
 
-            window['todo'].update(values=todos)     # updates the list box with new added todo/task
+            window['todos'].update(values=todos)     # updates the list box with new added todo/task
+            window['todo'].update(value='')  # updates the input box
         case "Edit":
             todo_to_edit = values["todos"][0]
             new_todo = values["todo"]
@@ -36,6 +41,17 @@ while True:
             functions.write_todos(todos)
 
             window['todos'].update(values=todos)    # updates the list box with new edited todos/task
+            window['todo'].update(value='')  # updates the input box
+        case "Complete":
+            todo_to_complete = values["todos"][0]
+            todos = functions.get_todos()
+            todos.remove(todo_to_complete)     # removes the specified value in todo_to_complete
+            functions.write_todos(todos)
+
+            window['todos'].update(values=todos)    # updates the list box (completes/deletes that item)
+            window['todo'].update(value='')     # updates the input box
+        case "Exit":
+            break
         case 'todos':
             window['todo'].update(value=values['todos'][0])
         case sg.WIN_CLOSED:     # WIN_CLOSED closes window
