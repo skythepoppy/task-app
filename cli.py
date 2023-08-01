@@ -1,6 +1,3 @@
-'''from functions import get_todos, write_todos  pulls functions from a separate file
-# above, functions is a module
-'''
 
 from modules import functions   # from modules folder, use functions module
 import time
